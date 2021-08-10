@@ -4,7 +4,7 @@ import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import "./Sidebar.css"
 import axios from 'axios'
-import SidebarChat from './SidebarChat';
+import SidebarChat from "../SidebarChat/SidebarChat";
 
 function Sidebar() {
 

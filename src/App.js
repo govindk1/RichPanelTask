@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
-import Sidebar from './component/Sidebar'
-import Chat from './component/Chat'
+import Sidebar from './component/agent/Sidebar/Sidebar'
+import Chat from './component/agent/Chat/Chat'
 import "./App.css"
 
 //facebook login
@@ -46,8 +46,9 @@ function App() {
 
 
     return data.isLoggedIn !== true ? (
-            <div>
-            <h1>Login with Facebook</h1>
+        <div style={{backgroundColor:"lightyellow"}}>
+        <div style={{position: "absolute", top: "50%", left: "50%",transform: "translate(-50%, -50%)",}}>
+           
 
             <FacebookLogin
                 appId="884226265520772"
@@ -58,6 +59,7 @@ function App() {
             />
             
             
+        </div>
         </div>
     ) : (
         <div className="app">

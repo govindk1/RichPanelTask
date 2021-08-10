@@ -2,14 +2,27 @@ import React, {useState, useEffect} from 'react'
 import "./Userchat.css"
 import axios from "axios"
 import moment from "moment"
+import socketClient  from "socket.io-client";
+const SERVER = "http://localhost:5000";
 
 function Userchat(props) {
+
+    const [check, setCheck] = useState(0);
+
+    var socket = socketClient(SERVER);
+    socket.on('message_update', (message) => {
+        if(message !== "client"){
+            setCheck(!check)
+        }
+   });
 
     //console.log(props.userInfo.email)
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([]);
-    
 
+
+    
+    
     useEffect(() => {
         async function getMessage(){
         const res = await axios.get('http://localhost:5000/message/' + props.userInfo.id )
@@ -18,20 +31,23 @@ function Userchat(props) {
         console.log("m", messages)
         }
         getMessage();
-    }, [])
+    }, [check])
 
 
     const sendMessage = async (e) => {
         e.preventDefault();
-        const user = {email: props.userInfo.email, whoissending: "client", text:input, userid:props.userInfo.id}
+        const user = {email: props.userInfo.email, whoissending: "client", text:input.trim(), userid:props.userInfo.id}
 
-        try{
-            await axios.post('http://localhost:5000/message', user)
-            setMessages((message) => [...message, user])
-            
-        }
-        catch(err){
-            console.log(err)
+        if(input.trim()){
+            try{
+                await axios.post('http://localhost:5000/message', user)
+                setMessages((message) => [...message, user])
+                
+            }
+            catch(err){
+                console.log(err)
+            }
+
         }
 
         setInput("");

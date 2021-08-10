@@ -4,8 +4,13 @@ import "./SidebarChat.css"
 
 function SidebarChat(props) {
     console.log(props)
+    const highlight = (e) => {
+        const divareaa = document.getElementsByClassName("sidebarChat")
+        divareaa[0].style.background = "rgb(248,249,250)"
+        divareaa[0].style.borderright = "none"
+    }
     return (
-        <Link to={`/rooms/${props.id}`}>
+        <Link onClick = {highlight} to={`/rooms/${props.id}`}>
             <div className="sidebarChat">
                
                 <div className="sidebarChat__info">
